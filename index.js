@@ -67,9 +67,8 @@ app.get('/register',(req,res)=>{
 
 app.post('/register',async(req,res)=>{    
     if(Object.keys(req.body).length === 0) return res.status(400).send('Data is empty!');        
-    if(passwordNotMatchFormat(req.body.password)) return res.status(400).send('Password not match the format!');
-    //if(accounts.find(account=>account.account===req.body.account)) return res.status(400).send('Account exist!');
-   
+    if(passwordNotMatchFormat(req.body.password)) return res.status(403).send('Password not match the format!');     
+    if(await db.getAccount(req.body.account)!=undefined) return res.status(409).send('Account exist!');
     try{           
         let name = req.body.account;
         let password = await bcrypt.hash(req.body.password,10);

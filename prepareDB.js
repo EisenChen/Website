@@ -33,6 +33,14 @@ export function register(name, password) {
     return db.run(`INSERT INTO accounts (name, password) VALUES('${name}','${password}')`);
 }
 
+export function getAccount(name){
+    return new Promise((resolve,reject)=>{
+        db.get(`SELECT name FROM accounts WHERE name = '${name}'`,(err,res)=>{                     
+            resolve(res);        
+        })
+    });
+}
+
 export function getPassword(name) {    
     return new Promise((resolve,reject)=>{
         db.get(`SELECT password FROM accounts WHERE name = '${name}'`,(err,res)=>{                     
