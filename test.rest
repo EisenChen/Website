@@ -1,0 +1,37 @@
+GET http://localhost:4567/
+
+###
+
+POST http://localhost:4567/login
+Content-Type: application/json
+
+{
+    "account": "account1",
+    "password":"P@ssw0rd"
+}
+
+###
+
+POST http://localhost:4567/logout
+
+###
+
+POST http://localhost:4567/register
+Content-Type: application/json
+
+{
+    "account": "account1",
+    "password":"P@ssw0rd"
+}
+
+
+###
+
+GET http://localhost:4567/live-accounts
+
+### 
+GET http://localhost:4567/accounts
+
+###
+
+GET http://localhost:4567/loginlog

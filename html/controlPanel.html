@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Panel</title>
+    <script src="command.js"></script>
+    <link rel="stylesheet" href="controlPanel.css"></link>
+</head>
+<body>
+    <div class="content">
+        <p>登入人數 : <span id="live-accounts-number"></span></p>
+        <div id="live-accounts">
+            <table id="live-accounts-table">
+                <thead>
+                    <tr>
+                        <td>兵籍號碼</td>
+                        <td>登入時間</td>
+                    </tr>
+                </thead>
+                <tbody id="live-accounts-list">
+
+                </tbody>
+            </table>
+        </div>    
+        <button onclick="logout()">登出</button>
+        <p></p>
+        <p>登入紀錄</p>
+        <div id="loginlog">
+            <table id="loginlog-table">
+                <thead>
+                    <tr>
+                        <td>編號</td>
+                        <td>兵籍號碼</td>
+                        <td>登入時間</td>
+                    </tr>
+                </thead>
+                <tbody id="loginlog-list">
+                </tbody>
+            </table>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    
+</body>
+</html>
