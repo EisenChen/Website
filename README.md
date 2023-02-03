@@ -13,9 +13,9 @@
 
 ### 安裝執行環境
 
-	cd Website //進入源代碼資料夾
+	cd Website /*進入源代碼資料夾*/
 
-	npm install //安裝所需的node_modules
+	npm install /*安裝所需的node_modules*/
 
 ### 啟動伺服器
 
