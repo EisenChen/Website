@@ -44,7 +44,8 @@ export function getAccount(name){
 export function getPassword(name) {    
     return new Promise((resolve,reject)=>{
         db.get(`SELECT password FROM accounts WHERE name = '${name}'`,(err,res)=>{                     
-            resolve(res.password);        
+            if(res===undefined) resolve(undefined);
+            else resolve(res.password);        
         })
     });
 }
