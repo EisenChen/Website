@@ -1,3 +1,5 @@
+let questionsid = [];
+
 function login(){
     fetch(window.origin+'/login',{
         method:'POST',
@@ -42,11 +44,6 @@ function register(){
 function cancel(){
     window.location.href='./';
 }
-
-(()=>{
-    getLiveAccounts();
-    getLoginlog();
-})();
 
 function getLiveAccounts(){
     fetch(window.origin+'/live-accounts',{
@@ -113,6 +110,81 @@ function logout(){
     }).catch((err) => {
         console.log(err);
     });
+}
+
+
+function getQuestions(){
+    fetch(window.origin+'/questions',{
+        method:'GET',        
+    }).then(
+        res=>res.json()
+    ).then(res=>{
+        let data = {
+            1:{
+                'description':'1+1=?',
+                'answers':[1,2,3,4]
+            },
+            2:{
+                'description':'2+2=?',
+                'answers':[1,2,3,4]
+            }
+        };
+        for(let num in data){
+            let box = document.createElement('div');
+            box.setAttribute('style','border:1px solid');
+            let description = document.createElement('div');
+            description.textContent = num+'. '+data[num].description;
+            let answers = document.createElement('div');                    
+            for(let i=0;i<data[num].answers.length;i++){
+                let answer = document.createElement('div');
+                answer.setAttribute('style','display:flex');
+                let choose = document.createElement('input');
+                choose.setAttribute('type','radio');
+                choose.setAttribute('value',i+1);                
+                choose.setAttribute('name','q'+num);   
+                let text = document.createElement('p');
+                text.textContent = data[num].answers[i];
+                answer.append(choose);                
+                answer.append(text);
+                answers.append(answer);
+            }
+            questionsid.push('q'+num);            
+            box.append(description);
+            box.append(answers);
+            document.getElementById('questions').append(box);
+        };
+    }).catch((err)=>{
+        console.log(err);
+    });
+    console.log(questionsid);
+}
+
+function submitAnswer(){
+    let ans = {};
+    questionsid.forEach((ele)=>{
+        let answers = document.getElementsByName(ele);
+        answers.forEach((ans)=>{
+            if(ans.checked) ans[ele]=ans.value;
+        });
+    });
+    fetch(window.origin+'/submitexam',{
+        method:'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body:JSON.stringify(ans),
+        redirect: 'follow'
+    }).then(res => 
+        res.json()
+    ).then((res)=>{
+        let score = document.createElement('div');
+        score.textContent = '分數 : ' + res.score;
+        score.setAttribute('style','margin:1em')
+        document.getElementById('exam').replaceWith(score);
+    }).catch((err) => {
+        console.log(err);
+    });
+    
 }
 
 function mockValue(){

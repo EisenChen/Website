@@ -47,7 +47,7 @@ app.post('/login', async(req,res)=>{
             let idx = liveAccounts.findIndex(ele=>ele===req.body.account);
             if(idx===-1) liveAccounts.push({name:req.body.account,date:now});
             else liveAccounts[idx].date = now;
-            return res.redirect('/controlPanel.html');
+            return res.redirect('/exam.html');
         }else{
             return res.status(200).send('Login fail!');
         }
@@ -72,7 +72,7 @@ app.post('/register',async(req,res)=>{
     try{           
         let name = req.body.account;
         let password = await bcrypt.hash(req.body.password,10);
-        await db.register(name,password);         
+        await db.register(name,password);
     }catch (err){
         return res.status(500).send(err);
     }
@@ -89,6 +89,14 @@ app.get('/accounts',(req,res)=>{
 
 app.get('/loginlog',async(req,res)=>{    
     res.send(await db.getLoginlog());
+});
+
+app.get('/questions',async(req,res)=>{
+    res.send(JSON.stringify(''));
+});
+
+app.post('/submitexam',async(req,res)=>{
+    res.send(JSON.stringify({score:10}));
 });
 
 app.listen(PORT);
