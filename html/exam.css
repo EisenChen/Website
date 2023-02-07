@@ -1,0 +1,14 @@
+.content {
+    margin: auto;
+    text-align: center;
+}
+
+#exam{
+    margin: 10px;
+}
+
+#questions{
+    border: 1px solid;
+    width: 600px;
+    margin: 10px auto;        
+}
