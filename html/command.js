@@ -131,7 +131,7 @@ function getQuestions(){
                 answer.setAttribute('style','display:flex');
                 let choose = document.createElement('input');
                 choose.setAttribute('type','radio');
-                choose.setAttribute('value',i+1);                
+                choose.setAttribute('value',data[num].candidate[i]);                
                 choose.setAttribute('name','q' + data[num].number);   
                 let text = document.createElement('p');
                 text.textContent = data[num].candidate[i];

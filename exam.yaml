@@ -10,3 +10,9 @@
   candidate: [1,2,3,4]
   answer: 4
   score: 10
+3:
+  number: 3
+  description: '3+3=?'
+  candidate: [1,2,6,456]
+  answer: 6
+  score: 10

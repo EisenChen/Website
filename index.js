@@ -105,7 +105,7 @@ app.post('/submitexam',async(req,res)=>{
     let questions = yaml.parse(file);
     let answers = req.body;    
     let score = 0;
-    for(let i in answers){        
+    for(let i in answers){  
         if(answers[i]===String(questions[i].answer)) score+=questions[i].score;
     }
     res.send(JSON.stringify({'score':score}));
