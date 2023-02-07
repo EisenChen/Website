@@ -2,6 +2,8 @@ import express from "express";
 import bcrypt  from "bcrypt";
 import cors from 'cors';
 import * as db from "./prepareDB.js";
+import fs from 'fs'
+import yaml from 'yaml'
 
 let app = express();
 let PORT = 4567;
@@ -92,11 +94,21 @@ app.get('/loginlog',async(req,res)=>{
 });
 
 app.get('/questions',async(req,res)=>{
-    res.send(JSON.stringify(''));
+    const file = fs.readFileSync('./exam.yaml','utf8');    
+    let questions = yaml.parse(file);
+    for(let i in questions) delete questions[i]['answer'];
+    res.send(JSON.stringify(questions));
 });
 
 app.post('/submitexam',async(req,res)=>{
-    res.send(JSON.stringify({score:10}));
+    const file = fs.readFileSync('./exam.yaml','utf8');    
+    let questions = yaml.parse(file);
+    let answers = req.body;    
+    let score = 0;
+    for(let i in answers){        
+        if(answers[i]===String(questions[i].answer)) score+=questions[i].score;
+    }
+    res.send(JSON.stringify({'score':score}));
 });
 
 app.listen(PORT);

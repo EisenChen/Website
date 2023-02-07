@@ -119,36 +119,27 @@ function getQuestions(){
     }).then(
         res=>res.json()
     ).then(res=>{
-        let data = {
-            1:{
-                'description':'1+1=?',
-                'answers':[1,2,3,4]
-            },
-            2:{
-                'description':'2+2=?',
-                'answers':[1,2,3,4]
-            }
-        };
+        let data = res;
         for(let num in data){
             let box = document.createElement('div');
-            box.setAttribute('style','border:1px solid');
+            box.setAttribute('style','border:1px solid');            
             let description = document.createElement('div');
             description.textContent = num+'. '+data[num].description;
             let answers = document.createElement('div');                    
-            for(let i=0;i<data[num].answers.length;i++){
+            for(let i=0;i<data[num].candidate.length;i++){
                 let answer = document.createElement('div');
                 answer.setAttribute('style','display:flex');
                 let choose = document.createElement('input');
                 choose.setAttribute('type','radio');
                 choose.setAttribute('value',i+1);                
-                choose.setAttribute('name','q'+num);   
+                choose.setAttribute('name','q' + data[num].number);   
                 let text = document.createElement('p');
-                text.textContent = data[num].answers[i];
+                text.textContent = data[num].candidate[i];
                 answer.append(choose);                
                 answer.append(text);
                 answers.append(answer);
             }
-            questionsid.push('q'+num);            
+            questionsid.push('q' + data[num].number);                        
             box.append(description);
             box.append(answers);
             document.getElementById('questions').append(box);
@@ -156,15 +147,14 @@ function getQuestions(){
     }).catch((err)=>{
         console.log(err);
     });
-    console.log(questionsid);
 }
 
 function submitAnswer(){
     let ans = {};
     questionsid.forEach((ele)=>{
         let answers = document.getElementsByName(ele);
-        answers.forEach((ans)=>{
-            if(ans.checked) ans[ele]=ans.value;
+        answers.forEach((answer)=>{            
+            if(answer.checked) ans[ele.substr(1)]=answer.value;            
         });
     });
     fetch(window.origin+'/submitexam',{
