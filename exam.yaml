@@ -1,18 +1,21 @@
 1:
   number: 1
   description: '1+1=?'
-  candidate: [1,2,3,4]
+  candidates: [1,2,3,4]
+  image: './assets/ak47.jpg'
   answer: 2
   score: 10
 2:
   number: 2
   description: '2+2=?'
-  candidate: [1,2,3,4]
+  candidates: [1,2,3,4]
+  image: './assets/mp28.png'
   answer: 4
   score: 10
 3:
   number: 3
   description: '3+3=?'
-  candidate: [1,2,6,456]
+  candidates: [1,2,6,456]
+  image: 'https://patchwiki.biligame.com/images/cj/c/cd/hhx7y0q8sbz7pzn0ee178q0phjoe6lr.png'
   answer: 6
   score: 10

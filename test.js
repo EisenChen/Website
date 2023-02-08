@@ -1,5 +1,3 @@
-import fs from 'fs'
-import yaml from 'yaml'
 
-const file = fs.readFileSync('./exam.yaml','utf8');
-console.log(yaml.parse(file));
+for(let i=0;i<10;i++)
+    console.log(Math.round(Math.random()*10));

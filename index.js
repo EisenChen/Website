@@ -97,7 +97,16 @@ app.get('/questions',async(req,res)=>{
     const file = fs.readFileSync('./exam.yaml','utf8');    
     let questions = yaml.parse(file);
     for(let i in questions) delete questions[i]['answer'];
-    res.send(JSON.stringify(questions));
+    let limited = {};
+    let candidates = Object.keys(questions);
+    let qlen = candidates>=10 ? 10 : candidates.length;
+    for(let i=0;i<qlen;i++){
+        let len = candidates.length;
+        let num = Math.floor(Math.random()*len);
+        limited[candidates[num]]=questions[candidates[num]];
+        candidates.splice(num,1);        
+    }        
+    res.send(JSON.stringify(limited));
 });
 
 app.post('/submitexam',async(req,res)=>{

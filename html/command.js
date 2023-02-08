@@ -122,24 +122,27 @@ function getQuestions(){
         let data = res;
         for(let num in data){
             let box = document.createElement('div');
-            box.setAttribute('style','border:1px solid');            
+            box.setAttribute('style','border:1px solid');
+            let image = document.createElement('img');
+            image.setAttribute('src',data[num].image);            
             let description = document.createElement('div');
             description.textContent = num+'. '+data[num].description;
             let answers = document.createElement('div');                    
-            for(let i=0;i<data[num].candidate.length;i++){
+            for(let i=0;i<data[num].candidates.length;i++){
                 let answer = document.createElement('div');
                 answer.setAttribute('style','display:flex');
                 let choose = document.createElement('input');
                 choose.setAttribute('type','radio');
-                choose.setAttribute('value',data[num].candidate[i]);                
+                choose.setAttribute('value',data[num].candidates[i]);                
                 choose.setAttribute('name','q' + data[num].number);   
                 let text = document.createElement('p');
-                text.textContent = data[num].candidate[i];
+                text.textContent = data[num].candidates[i];
                 answer.append(choose);                
                 answer.append(text);
                 answers.append(answer);
             }
             questionsid.push('q' + data[num].number);                        
+            box.append(image);
             box.append(description);
             box.append(answers);
             document.getElementById('questions').append(box);
