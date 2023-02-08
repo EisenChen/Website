@@ -125,6 +125,7 @@ function getQuestions(){
             box.setAttribute('style','border:1px solid');
             let image = document.createElement('img');
             image.setAttribute('src',data[num].image);            
+            image.setAttribute('style','width:100%');       
             let description = document.createElement('div');
             description.textContent = num+'. '+data[num].description;
             let answers = document.createElement('div');                    
