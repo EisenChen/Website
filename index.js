@@ -99,7 +99,7 @@ app.get('/questions',async(req,res)=>{
     for(let i in questions) delete questions[i]['answer'];
     let limited = {};
     let candidates = Object.keys(questions);
-    let qlen = candidates>=10 ? 10 : candidates.length;
+    let qlen = candidates.length>=10 ? 10 : candidates.length;
     for(let i=0;i<qlen;i++){
         let len = candidates.length;
         let num = Math.floor(Math.random()*len);
