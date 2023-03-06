@@ -119,7 +119,7 @@ function getQuestions(){
     }).then(
         res=>res.json()
     ).then(res=>{
-        let data = res;
+        let data = res;        
         for(let num in data){
             let box = document.createElement('div');
             box.setAttribute('style','border:1px solid');
@@ -127,7 +127,7 @@ function getQuestions(){
             image.setAttribute('src',data[num].image);            
             image.setAttribute('style','width:100%');       
             let description = document.createElement('div');
-            description.textContent = num+'. '+data[num].description;
+            description.textContent = num+'. '+data[num].description;            
             let answers = document.createElement('div');                    
             for(let i=0;i<data[num].candidates.length;i++){
                 let answer = document.createElement('div');
@@ -155,11 +155,18 @@ function getQuestions(){
 
 function submitAnswer(){
     let ans = {};
+    let n = 1;
     questionsid.forEach((ele)=>{
-        let answers = document.getElementsByName(ele);
-        answers.forEach((answer)=>{            
-            if(answer.checked) ans[ele.substr(1)]=answer.value;            
-        });
+        let answers = document.getElementsByName(ele);         
+        for(let i=0;i<answers.length;i++){                              
+            let id = ele.substr(1);
+            if(answers[i].checked){
+                ans[id]={qnum:n,qid:id,ans:answers[i].value};
+                break;
+            }
+            if(i===answers.length-1) ans[id]={qnum:n,qid:id,ans:''};
+        }        
+        n++;
     });
     fetch(window.origin+'/submitexam',{
         method:'POST',
@@ -174,7 +181,48 @@ function submitAnswer(){
         let score = document.createElement('div');
         score.textContent = '分數 : ' + res.score;
         score.setAttribute('style','margin:1em')
-        document.getElementById('exam').replaceWith(score);
+        //Show Right Answer
+        let box = document.createElement('div');
+        box.setAttribute('style','border:1px solid;margin:auto;width:fit-content');
+        let tb = document.createElement('table');        
+        let trh = document.createElement('tr');
+        trh.setAttribute('style','border: 1px solid');        
+        let th1 = document.createElement('th');
+        th1.setAttribute('style','border: 1px solid');        
+        let th2 = document.createElement('th');
+        th2.setAttribute('style','border: 1px solid');        
+        let th3 = document.createElement('th');
+        th3.setAttribute('style','border: 1px solid');        
+        th1.textContent = "題目";
+        th2.textContent = "回答";
+        th3.textContent = "正確答案";
+        trh.append(th1);
+        trh.append(th2);
+        trh.append(th3);
+        tb.append(trh);
+        let wrongAnsList = Object.keys(res.wrongAnsList);
+        for(let i of wrongAnsList){
+            let trd = document.createElement('tr');
+            trd.setAttribute('style','border: 1px solid');   
+            let td1 = document.createElement('td');
+            td1.setAttribute('style','border: 1px solid');               
+            let td2 = document.createElement('td');
+            td2.setAttribute('style','border: 1px solid;text-decoration:line-through;');   
+            let td3 = document.createElement('td');          
+            td3.setAttribute('style','border: 1px solid');            
+            td1.textContent = res.wrongAnsList[i].qnum + '. ' + res.wrongAnsList[i].description;
+            td2.textContent = res.wrongAnsList[i].answer;
+            td3.textContent = res.wrongAnsList[i].rightAns;
+            trd.append(td1);
+            trd.append(td2);
+            trd.append(td3);
+            tb.append(trd);
+        }
+        box.append(tb);        
+        let content = document.createElement('div');
+        content.append(score);
+        content.append(box);
+        document.getElementById('exam').replaceWith(content);
     }).catch((err) => {
         console.log(err);
     });

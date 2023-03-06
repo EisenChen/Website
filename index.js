@@ -19,6 +19,8 @@ let __dirname = process.cwd() + "/html";
 app.use(express.static(__dirname));
 
 let liveAccounts = [];
+const file = fs.readFileSync('./exam.yaml','utf8'); 
+let examquestions = yaml.parse(file);
 
 let passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~!@#\$%\^&\*_\-+])(?=.{8,20}$)/;
 /*
@@ -93,31 +95,39 @@ app.get('/loginlog',async(req,res)=>{
     res.send(await db.getLoginlog());
 });
 
-app.get('/questions',async(req,res)=>{
-    const file = fs.readFileSync('./exam.yaml','utf8');    
-    let questions = yaml.parse(file);
-    for(let i in questions) delete questions[i]['answer'];
+app.get('/questions',async(req,res)=>{    
     let limited = {};
-    let candidates = Object.keys(questions);
+    let candidates = Object.keys(examquestions);
     let qlen = candidates.length>=10 ? 10 : candidates.length;
     for(let i=0;i<qlen;i++){
         let len = candidates.length;
         let num = Math.floor(Math.random()*len);
-        limited[candidates[num]]=questions[candidates[num]];
+        let n = candidates[num];
+        limited[i+1] = {
+            number: examquestions[n].number,
+            description: examquestions[n].description,
+            candidates: examquestions[n].candidates,
+            image: examquestions[n].image            
+        }
         candidates.splice(num,1);        
-    }        
+    }            
     res.send(JSON.stringify(limited));
 });
 
-app.post('/submitexam',async(req,res)=>{
-    const file = fs.readFileSync('./exam.yaml','utf8');    
-    let questions = yaml.parse(file);
+app.post('/submitexam',async(req,res)=>{    
     let answers = req.body;    
     let score = 0;
-    for(let i in answers){  
-        if(answers[i]===String(questions[i].answer)) score+=questions[i].score;
-    }
-    res.send(JSON.stringify({'score':score}));
+    let wrongAnsList = {};        
+    for(let i in answers){         
+        if(answers[i].ans===String(examquestions[answers[i].qid].answer)) score+=examquestions[answers[i].qid].score;
+        else{
+            wrongAnsList[answers[i].qnum]={qnum:answers[i].qnum,
+                                description:examquestions[answers[i].qid].description,
+                                answer:answers[i].ans,
+                                rightAns:examquestions[answers[i].qid].answer}
+        }
+    }    
+    res.send(JSON.stringify({'score':score,'wrongAnsList':wrongAnsList}));
 });
 
 app.listen(PORT);

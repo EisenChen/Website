@@ -1,21 +1,105 @@
 1:
   number: 1
-  description: '1+1=?'
-  candidates: [1,2,3,4]
-  image: './assets/ak47.jpg'
-  answer: 2
+  description: '輕兵器模擬器有幾個分系統?'
+  candidates: [4,5,6,7]
+  image: './assets/T91.jpg'
+  answer: 6
   score: 10
 2:
   number: 2
-  description: '2+2=?'
-  candidates: [1,2,3,4]
-  image: './assets/mp28.png'
-  answer: 4
+  description: '輕兵器模擬槍紅外線模組放置點為何?'
+  candidates: [彈匣,防火帽,槍身,護木]
+  image: './assets/T91-2.jpg'
+  answer: 防火帽
   score: 10
 3:
   number: 3
-  description: '3+3=?'
-  candidates: [1,2,6,456]
-  image: 'https://patchwiki.biligame.com/images/cj/c/cd/hhx7y0q8sbz7pzn0ee178q0phjoe6lr.png'
+  description: '輕兵器模擬器校正槍枝的校準點有幾個?'
+  candidates: [1,2,6,8]
+  image: './assets/123.jpg'
   answer: 6
+  score: 10
+4:
+  number: 4
+  description: '多武器模擬器迫砲分最大尺寸為何?'
+  candidates: [60迫砲,81迫砲,120迫砲,155迫砲]
+  image: './assets/81.jpg'
+  answer: 120迫砲
+  score: 10
+5:  
+  number: 5
+  description: '多武器模擬器步槍有幾種?'
+  candidates: [1,2,3,4]
+  image: './assets/多武器.jpg'
+  answer: 2
+  score: 10
+6:
+  number: 6
+  description: '多武器模擬器機槍有幾種?'
+  candidates: [1,2,3,4]
+  image: './assets/多武器.jpg'
+  answer: 2
+  score: 10
+7:
+  number: 7
+  description: 'F-16飛行模擬器定期維護是多久做一次?'
+  candidates: [每月,每季,每年,以上皆是]
+  image: './assets/F16.jpg'
+  answer: 以上皆是
+  score: 10
+8:
+  number: 8
+  description: 'F-16飛行模擬器主要輸出電壓源為幾伏特?'
+  candidates: [3,5,12,28]
+  image: './assets/power.jpg'
+  answer: 28
+  score: 10
+9:
+  number: 9
+  description: '簡易型戰車模擬器系統為?'
+  candidates: [XP,WIN7,WIN10,WIN8]
+  image: './assets/stkb.jpg'
+  answer: XP
+  score: 10
+10:
+  number: 10
+  description: 'T91步槍後座力是如何形成?'
+  candidates: [彈簧,電磁閥,氣壓,以上皆是]
+  image: './assets/T91.jpg'
+  answer: 以上皆是
+  score: 10
+11:
+  number: 11
+  description: 'T91步槍所輸出的壓力是多少?'
+  candidates: [3公斤,5公斤,7公斤,10公斤]
+  image: './assets/T91.jpg'
+  answer: 7公斤
+  score: 10
+12:
+  number: 12
+  description: '50機槍子彈是用何物感應?'
+  candidates: [磁鐵,貼紙,紅外線,重量]
+  image: './assets/50.jpg'
+  answer: 磁鐵
+  score: 10
+13:
+  number: 13
+  description: '多武器模擬器有幾間教室?'
+  candidates: [1,2,3,5]
+  image: './assets/MATS.jpg'
+  answer: 5
+  score: 10
+14:
+  number: 14
+  description: '多武器模擬器視效電腦有幾台'
+  candidates: [3,6,9,12]
+  image: './assets/MATS.jpg'
+  answer: 6
+  score: 10
+15:
+  number: 15
+  description: 'F-16模擬器目前存放位置?'
+  candidates: [二聯隊,三聯隊,四聯隊,七聯隊]
+  image: './assets/F16.jpg'
+  answer: 四聯隊
   score: 10
